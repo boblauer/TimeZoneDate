@@ -1,0 +1,3 @@
+function TimeZoneDate(offset, date) {
+
+}

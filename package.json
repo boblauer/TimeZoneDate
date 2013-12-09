@@ -1,0 +1,24 @@
+{
+  "readmeFilename": "README.md",
+  "name": "TimeZoneDate",
+  "description": "ERROR: No README.md file found!",
+  "version": "0.0.0",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "grunt-mocha": "~0.4.7"
+  },
+  "devDependencies": {
+    "load-grunt-tasks": "~0.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "date",
+    "timezone"
+  ],
+  "author": "Bob Lauer",
+  "license": "BSD"
+}
