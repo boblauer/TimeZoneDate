@@ -1,9 +1,19 @@
 function TimeZoneDate(offset, date) {
-  this._offset = offset;
+  this._offset = this._normalizeOffset(offset);
   this._date = date ? new Date(date) : new Date();
 
   this._date = this._getDateWithLocalOffsetAdded();
 }
+
+TimeZoneDate.prototype._normalizeOffset = function(offset) {
+  // offset can be in 2 forms.  Either the results of new Date().getTimezoneOffset(),
+  // or the hours away from UTC (-6 for UTC -0600).
+  if (offset % 60) {
+    offset = offset * -60;
+  }
+
+  return offset;
+};
 
 TimeZoneDate.prototype._getDateWithTargetOffsetAdded = function(date) {
   var localOffset = new Date().getTimezoneOffset() * 60 * 1000;

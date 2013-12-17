@@ -3,7 +3,7 @@ var assert = chai.assert;
 describe('Testing basic functionality', function() {
   var offset = new Date().getTimezoneOffset();
 
-  it('should be run with a sys clock of -0600 UTC', function(done) {
+  it('should be run with a system clock of -0600 UTC', function(done) {
     assert.equal(offset, 360);
     done();
   });
@@ -18,6 +18,16 @@ describe('Testing basic functionality', function() {
 
   it('should return the same value as a local date', function(done) {
     assert.equal(utcDate.valueOf(), localDate.valueOf());
+    done();
+  });
+
+  it('should accept both types of timezone offset', function(done) {
+    var offsetsByMinutes = [-360, -300, -240, -180, -120, -60, 0, 60, 120, 180, 240, 300, 360];
+    var offsetsByHours = [6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6];
+
+    for (var i = 0; i < offsetsByMinutes.length; i++) {
+      assert.equal(new TimeZoneDate(offsetsByMinutes[i])._offset, new TimeZoneDate(offsetsByHours[i])._offset);
+    }
     done();
   });
 });
