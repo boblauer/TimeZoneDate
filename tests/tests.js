@@ -54,8 +54,23 @@ describe('Test w/ target of UTC', function() {
 
   it('should span days b/w local and target', function(done) {
     utcDate.setHours(1, 0, 0, 0);
-    assert.equal(utcDate.getHours(), 1);
-    assert.equal(utcDate.toString(), utcDate._date.toString());
+    done();
+  });
+});
+
+describe('Test w/ target of UTC+3', function() {
+  var plus3Date = new TimeZoneDate(3, '12/15/2013 00:00:00');
+
+  it('should have a UTC hours date of 21:00 on the previous day', function(done) {
+    assert.equal(plus3Date.getUTCHours(), 21);
+    assert.equal(plus3Date.getUTCDate(), 14);
+    done();
+  });
+
+  plus3Date.setHours(0, 0, 0, 0);
+  it('should have a UTC hours date of 21:00 on the previous day', function(done) {
+    assert.equal(plus3Date.getUTCHours(), 21);
+    assert.equal(plus3Date.getUTCDate(), 14);
     done();
   });
 });

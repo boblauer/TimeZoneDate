@@ -15,6 +15,16 @@ TimeZoneDate.prototype._normalizeOffset = function(offset) {
   return offset;
 };
 
+TimeZoneDate.prototype._getTimezoneDisplayValue = function() {
+  var isPositive = this._offset < 0;
+  var hours = ((this._offset / -60) * 100).toString();
+  while (hours.length < 4) {
+    hours = '0' + hours;
+  }
+
+  return (isPositive ? '+' : '-') + hours;
+};
+
 TimeZoneDate.prototype._getDateWithTargetOffsetAdded = function(date) {
   var localOffset = new Date().getTimezoneOffset() * 60 * 1000;
   var targetOffset = this._offset * 60 * 1000;
@@ -35,7 +45,8 @@ TimeZoneDate.prototype._getDateWithLocalOffsetAdded = function(date) {
 .split(' ').forEach(function(fn) {
   if (Date.prototype[fn]) {
     TimeZoneDate.prototype[fn] = function() {
-      var targetDate = this._getDateWithTargetOffsetAdded();
+      var isUTCGet = fn.indexOf('getUTC') === 0;
+      var targetDate = isUTCGet ? this._date : this._getDateWithTargetOffsetAdded();
       return Date.prototype[fn].apply(targetDate, arguments);
     };
   }
@@ -57,8 +68,10 @@ TimeZoneDate.prototype._getDateWithLocalOffsetAdded = function(date) {
 });
 
 TimeZoneDate.prototype.toString = function() {
-  var date = this._getDateWithTargetOffsetAdded();
-  return Date.prototype.toString.apply(date, arguments);
+  var res = Date.prototype.toString.apply(this._getDateWithTargetOffsetAdded(), arguments);
+  res = res.replace(/GMT.*/, 'GMT' + this._getTimezoneDisplayValue());
+
+  return res;
 };
 
 TimeZoneDate.prototype.valueOf = function() {
