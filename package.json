@@ -1,20 +1,19 @@
 {
   "readmeFilename": "README.md",
   "name": "TimeZoneDate",
-  "description": "ERROR: No README.md file found!",
-  "version": "0.0.0",
+  "description": "A JavaScript Date alternative that is specific to a given timezone other than the current machine's timezone.",
+  "version": "0.0.1",
   "main": "Gruntfile.js",
-  "dependencies": {
-    "grunt": "~0.4.2",
-    "grunt-mocha": "~0.4.7"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-mocha": "~0.4.7",
     "load-grunt-tasks": "~0.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt"
   },
-  "repository": "",
+  "repository": "https://github.com/boblauer/TimeZoneDate",
   "keywords": [
     "date",
     "timezone"
