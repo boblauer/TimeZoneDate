@@ -72,5 +72,6 @@ describe('Test setting UTC values', function() {
 
   it('should have a time of 3:00AM on 12/15', function() {
     assert.equal(plus3Date.getDate(), 15);
+    assert.equal(plus3Date.getHours(), 3);
   });
 });
