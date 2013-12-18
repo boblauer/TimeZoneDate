@@ -18,7 +18,12 @@ describe('Testing basic functionality', function() {
 });
 
 describe('Test w/ target of UTC', function() {
+  var localUTCDate = Date.UTC(2013, 0, 10, 17, 40, 30);
   var utcDate = new TimeZoneDate(0, '1/10/2013 17:40:30');
+
+  it('should have the same value as a normal date object w/ the same date', function() {
+    assert.equal(localUTCDate.valueOf(), utcDate.valueOf());
+  });
 
   it('should have a time of 17:40:30.00', function() {
     assert.equal(utcDate.getHours(), 17);
