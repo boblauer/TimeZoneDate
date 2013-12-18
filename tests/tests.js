@@ -69,3 +69,13 @@ describe('Test setting UTC values', function() {
     assert.equal(plus3Date.getHours(), 3);
   });
 });
+
+describe('Test w/ target of 24 hrs ahead of the current timezone', function() {
+  var currentOffset = new Date().getTimezoneOffset();
+  var plus24HoursOffset = currentOffset + (24 * -60);
+  var plus24Date = new TimeZoneDate(plus24HoursOffset);
+
+  it('should have a date of tomorrow', function() {
+    assert.equal(plus24Date.getDate(), new Date().getDate() + 1);
+  });
+});
