@@ -8,7 +8,7 @@ function TimeZoneDate(offset, date) {
 TimeZoneDate.prototype._normalizeOffset = function(offset) {
   // offset can be in 2 forms.  Either the results of new Date().getTimezoneOffset(),
   // or the hours away from UTC (-6 for UTC -0600).
-  if (offset % 60) {
+  if (offset % 30) {
     offset = offset * -60;
   }
 
