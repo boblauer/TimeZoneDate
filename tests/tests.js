@@ -1,21 +1,10 @@
 var assert = chai.assert;
 
 describe('Testing basic functionality', function() {
-  var offset = new Date().getTimezoneOffset();
-
-  it('should be run with a system clock of -0600 UTC', function() {
-    assert.equal(offset, 360);
-  });
-
-  var localDate = new Date('1/1/2013 5:00 PM');
   var utcDate = new TimeZoneDate(0, '1/1/2013 11:00 PM');
 
   it('should create a new TimeZoneDate object', function() {
     assert.ok(utcDate);
-  });
-
-  it('should return the same value as a local date', function() {
-    assert.equal(utcDate.valueOf(), localDate.valueOf());
   });
 
   it('should accept both types of timezone offset', function() {
