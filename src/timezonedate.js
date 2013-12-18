@@ -41,38 +41,52 @@ TimeZoneDate.prototype._getDateWithLocalOffsetAdded = function(date) {
   return new Date(ms);
 };
 
-'getDate getDay getFullYear getHours getMilliseconds getMinutes getMonth getSeconds getTime getUTCDate getUTCDay getUTCFullYear getUTCHours getUTCMilliseconds getUTCMinutes getUTCMonth getUTCSeconds getYear'
-.split(' ').forEach(function(fn) {
-  if (Date.prototype[fn]) {
-    TimeZoneDate.prototype[fn] = function() {
-      var isUTCGet = fn.indexOf('getUTC') === 0;
-      var targetDate = isUTCGet ? this._date : this._getDateWithTargetOffsetAdded();
-      return Date.prototype[fn].apply(targetDate, arguments);
-    };
+var getFns = [];
+var setFns = [];
+var toStringFns = [];
+
+Object.getOwnPropertyNames(Date.prototype).forEach(function(fnName) {
+  if (/^get/.test(fnName)) {
+    getFns.push(fnName);
+  } else if (/^set/.test(fnName)) {
+    setFns.push(fnName);
+  } else if (/^to(.*)String$/.test(fnName)) {
+    toStringFns.push(fnName);
   }
 });
 
-'setDate setFullYear setHours setMilliseconds setMinutes setMonth setSeconds setTime setUTCDate setUTCFullYear setUTCHours setUTCMilliseconds setUTCMinutes setUTCMonth setUTCSeconds setYear'
-.split(' ').forEach(function(fn) {
-  if (Date.prototype[fn]) {
-    TimeZoneDate.prototype[fn] = function() {
-      var isUTCSet = fn.indexOf('setUTC') === 0;
-      var getFn = fn.replace('set', 'get');
-
-      this._date = isUTCSet ? this._date : this._getDateWithTargetOffsetAdded();
-      Date.prototype[fn].apply(this._date, arguments);
-      this._date = isUTCSet ? this._date : this._getDateWithLocalOffsetAdded();
-
-      return this[getFn] ? this[getFn]() : this._date.valueOf();
-    };
-  }
+getFns.forEach(function(fnName) {
+  TimeZoneDate.prototype[fnName] = function() {
+    var isUTCGet = /^getUTC/.test(fnName);
+    var targetDate = isUTCGet ? this._date : this._getDateWithTargetOffsetAdded();
+    return Date.prototype[fnName].apply(targetDate, arguments);
+  };
 });
 
-TimeZoneDate.prototype.toString = function() {
-  var res = Date.prototype.toString.apply(this._getDateWithTargetOffsetAdded(), arguments);
-  res = res.replace(/GMT.*/, 'GMT' + this._getTimezoneDisplayValue());
+setFns.forEach(function(fnName) {
+  TimeZoneDate.prototype[fnName] = function() {
+    var isUTCSet = /^setUTC/.test(fnName);
+    var getFn = fnName.replace('set', 'get');
 
-  return res;
+    this._date = isUTCSet ? this._date : this._getDateWithTargetOffsetAdded();
+    Date.prototype[fnName].apply(this._date, arguments);
+    this._date = isUTCSet ? this._date : this._getDateWithLocalOffsetAdded();
+
+    return this[getFn] ? this[getFn]() : this._date.valueOf();
+  };
+});
+
+toStringFns.forEach(function(fnName) {
+  TimeZoneDate.prototype[fnName] = function() {
+    var stringDate = Date.prototype[fnName].apply(this._getDateWithTargetOffsetAdded(), arguments);
+    stringDate = stringDate.replace(/GMT.*/, 'GMT' + this._getTimezoneDisplayValue());
+
+    return stringDate;
+  };
+});
+
+TimeZoneDate.prototype.toJSON = function() {
+  return this._date.toJSON();
 };
 
 TimeZoneDate.prototype.valueOf = function() {
