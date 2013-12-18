@@ -56,11 +56,12 @@ TimeZoneDate.prototype._getDateWithLocalOffsetAdded = function(date) {
 .split(' ').forEach(function(fn) {
   if (Date.prototype[fn]) {
     TimeZoneDate.prototype[fn] = function() {
+      var isUTCSet = fn.indexOf('setUTC') === 0;
       var getFn = fn.replace('set', 'get');
 
-      this._date = this._getDateWithTargetOffsetAdded();
+      this._date = isUTCSet ? this._date : this._getDateWithTargetOffsetAdded();
       Date.prototype[fn].apply(this._date, arguments);
-      this._date = this._getDateWithLocalOffsetAdded();
+      this._date = isUTCSet ? this._date : this._getDateWithLocalOffsetAdded();
 
       return this[getFn] ? this[getFn]() : this._date.valueOf();
     };

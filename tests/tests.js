@@ -74,3 +74,12 @@ describe('Test w/ target of UTC+3', function() {
     done();
   });
 });
+
+describe('Test setting UTC values', function() {
+  var plus3Date = new TimeZoneDate(3, '12/15/2013 5:00');
+  plus3Date.setUTCHours(0, 0, 0, 0);
+
+  it('should have a time of 3:00AM on 12/15', function() {
+    assert.equal(plus3Date.getDate(), 15);
+  });
+});
