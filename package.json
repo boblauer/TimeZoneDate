@@ -1,6 +1,6 @@
 {
   "readmeFilename": "README.md",
-  "name": "TimeZoneDate",
+  "name": "timezonedate",
   "description": "A JavaScript Date alternative that is specific to a given timezone other than the current machine's timezone.",
   "version": "0.0.1",
   "author": "Bob Lauer <rlauer@gmail.com>",
