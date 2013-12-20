@@ -100,7 +100,7 @@
     return this._date.toJSON();
   };
 
-  TimeZoneDate.prototype.valueOf = function() {
+  TimeZoneDate.prototype.valueOf = TimeZoneDate.prototype.getTime = function() {
     return this._date.valueOf();
   };
 
