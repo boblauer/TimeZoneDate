@@ -7,7 +7,7 @@
   function TimeZoneDate(offset, date) {
     this._offset = this._normalizeOffset(offset);
 
-    this._date = this._getDateWithTargetOffsetAdded(date ? new Date(date) : new Date());
+    this._date = date ? new Date(date) : this._getDateWithTargetOffsetAdded(new Date());
     date = this._date.toString();
 
     this._date = new Date(date);
