@@ -37,7 +37,7 @@ The other way to specify the timezone is to pass in what the result of `new Date
 
 #### __initialDate__
 
-__type__: __`Date`__ or __`String`__
+__type__: __`Date` or `String`__
 
 If a Date object is passed in, the TimeZoneDate will be set to the same moment, rather than the same time.  For example:
 
@@ -70,6 +70,6 @@ dateInUTCMinus1.toString();
 dateInUTCPlus1.toString();
 // Wed Jan 01 2013 12:00:00 GMT+0100
 ```
-If the initialDate parameter is omitted, it is the equivalent of passing in `new Date()`.
+If the `initialDate` parameter is omitted, it is the equivalent of passing in `new Date()`.
 
 __The rest of the API is exactly the same as the native Date object.__
