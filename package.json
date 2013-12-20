@@ -2,7 +2,7 @@
   "readmeFilename": "README.md",
   "name": "timezonedate",
   "description": "A JavaScript Date alternative that is specific to a given timezone other than the current machine's timezone.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Bob Lauer <rlauer@gmail.com>",
   "main": "./src/timezonedate.js",
   "dependencies": {},
