@@ -31,7 +31,7 @@ __type__: __`Number`__
 
 There are two ways to specify a timezone offset.
 
-The easiest is by passing in the hours relative to UTC.  So if you want to be specify the timezone one hour behind UTC, you would pass in -1.  For one hour ahead of UTC, you would pass in 1.
+The easiest is by passing in the hours relative to UTC.  So if you want to specify the timezone one hour behind UTC, you would pass in -1.  For one hour ahead of UTC, you would pass in 1.
 
 The other way to specify the timezone is to pass in what the result of `new Date().getTimezoneOffset()` would be if it were run in the target timezone.  For example, if your system clock is set to UTC-1, `new Date().getTimezoneOffset()` will be 60.  If you are in UTC+1, the result will be -60.  Check out [the MDN getTimezoneOffset documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset) for more info.
 
