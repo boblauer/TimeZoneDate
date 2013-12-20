@@ -94,6 +94,14 @@
     };
   });
 
+  TimeZoneDate.prototype.getTimezone = function() {
+    return '';
+  };
+
+  TimeZoneDate.prototype.getTimezoneOffset = function() {
+    return this._offset;
+  };
+
   TimeZoneDate.prototype.toJSON = function() {
     return this._date.toJSON();
   };

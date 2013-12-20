@@ -2,6 +2,8 @@ var assert = chai.assert;
 
 describe('Testing basic functionality', function() {
   var utcDate = new TimeZoneDate(0, '1/1/2013 11:00 PM');
+  var utcMinus3 = new TimeZoneDate(-3);
+  var utcPlus3 = new TimeZoneDate(-180);
 
   it('should create a new TimeZoneDate object', function() {
     assert.ok(utcDate);
@@ -14,6 +16,12 @@ describe('Testing basic functionality', function() {
     for (var i = 0; i < offsetsByMinutes.length; i++) {
       assert.equal(new TimeZoneDate(offsetsByMinutes[i])._offset, new TimeZoneDate(offsetsByHours[i])._offset);
     }
+  });
+
+  it('should give back the correct offset', function() {
+    assert.equal(utcDate.getTimezoneOffset(), 0);
+    assert.equal(utcMinus3.getTimezoneOffset(), 180);
+    assert.equal(utcPlus3.getTimezoneOffset(), -180);
   });
 });
 
